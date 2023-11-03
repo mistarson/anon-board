@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.anonboard.api.board.dto.BoardResponseDto;
+import sparta.anonboard.api.board.dto.ModifyBoardRequestDto;
 import sparta.anonboard.api.board.dto.PostBoardRequestDto;
 import sparta.anonboard.domain.board.entity.Board;
 import sparta.anonboard.domain.board.service.BoardService;
@@ -34,6 +35,25 @@ public class ApiBoardService {
     public List<BoardResponseDto> inquireAllBoard() {
 
         return boardService.findAllBoards().stream().map(BoardResponseDto::of).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public BoardResponseDto modifyBoard(ModifyBoardRequestDto modifyBoardRequestDto) {
+
+        Board findBoard = boardService.findBoardById(modifyBoardRequestDto.getId());
+        validatePassword(modifyBoardRequestDto.getPassword(), findBoard.getPassword());
+
+        Board modifyBoard = modifyBoardRequestDto.toEntity();
+
+        Board modifiedBoard = boardService.modifyBoard(modifyBoard, findBoard);
+
+        return BoardResponseDto.of(modifiedBoard);
+    }
+
+    private void validatePassword(String passwordInRequest, String passwordInDB) {
+        if (!passwordInDB.equals(passwordInRequest)) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

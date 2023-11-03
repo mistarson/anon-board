@@ -5,12 +5,14 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sparta.anonboard.api.board.dto.BoardResponseDto;
+import sparta.anonboard.api.board.dto.ModifyBoardRequestDto;
 import sparta.anonboard.api.board.dto.PostBoardRequestDto;
 import sparta.anonboard.api.board.service.ApiBoardService;
 
@@ -43,6 +45,15 @@ public class ApiBoardController {
         List<BoardResponseDto> boards = apiBoardService.inquireAllBoard();
 
         return ResponseEntity.ok(boards);
+    }
+
+    @PatchMapping("/board")
+    public ResponseEntity<BoardResponseDto> modifyBoard(@Valid @RequestBody
+            ModifyBoardRequestDto modifyBoardRequestDto) {
+
+        BoardResponseDto modifiedBoardDto = apiBoardService.modifyBoard(modifyBoardRequestDto);
+
+        return ResponseEntity.ok(modifiedBoardDto);
     }
 
 }
