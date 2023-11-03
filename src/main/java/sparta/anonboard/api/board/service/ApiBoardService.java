@@ -22,4 +22,10 @@ public class ApiBoardService {
         return BoardResponseDto.of(postedBoard);
     }
 
+    public BoardResponseDto inquireBoard(Long boardId) {
+
+        Board findBoard = boardService.findBoardById(boardId);
+
+        return BoardResponseDto.of(findBoard);
+    }
 }

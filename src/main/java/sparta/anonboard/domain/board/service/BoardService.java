@@ -15,4 +15,8 @@ public class BoardService {
        return boardRepository.save(board);
     }
 
+    public Board findBoardById(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException());
+    }
+
 }
