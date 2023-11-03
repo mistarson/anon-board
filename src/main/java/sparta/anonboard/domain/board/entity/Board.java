@@ -22,6 +22,9 @@ public class Board extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
     private String writer;
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -31,9 +34,11 @@ public class Board extends BaseTimeEntity {
     private String password;
 
     @Builder
-    public Board(String writer, String content, String password) {
+    public Board(String title, String writer, String content, String password) {
+        this.title = title;
         this.writer = writer;
         this.content = content;
         this.password = password;
     }
+
 }
