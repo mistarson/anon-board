@@ -1,6 +1,7 @@
 package sparta.anonboard.api.board.controller;
 
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,4 +36,13 @@ public class ApiBoardController {
 
         return ResponseEntity.ok(boardResponseDto);
     }
+
+    @GetMapping("/boards")
+    public ResponseEntity<List<BoardResponseDto>> inquireAllBoards() {
+
+        List<BoardResponseDto> boards = apiBoardService.inquireAllBoard();
+
+        return ResponseEntity.ok(boards);
+    }
+
 }
