@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,7 +24,7 @@ public class GlobalExceptionHandler {
         BindingResult bindingResult = e.getBindingResult();
 
         List<String> errorMessages = bindingResult.getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
+                .map(fe -> fe.getField() + " - " + fe.getDefaultMessage())
                 .collect(Collectors.toList());
 
         ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.BAD_REQUEST, errorMessages);

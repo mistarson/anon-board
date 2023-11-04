@@ -1,6 +1,5 @@
 package sparta.anonboard.api.board.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sparta.anonboard.api.board.dto.BoardResponseDto;
@@ -52,9 +52,7 @@ public class ApiBoardController {
     @PatchMapping("/board")
     public ResponseEntity<BoardResponseDto> modifyBoard(
             @Valid @RequestBody ModifyBoardRequestDto modifyBoardRequestDto,
-            HttpServletRequest request) {
-
-        String password = request.getHeader("Password");
+            @RequestHeader("Password") String password) {
 
         BoardResponseDto modifiedBoardDto = apiBoardService.modifyBoard(modifyBoardRequestDto, password);
 
@@ -62,9 +60,7 @@ public class ApiBoardController {
     }
 
     @DeleteMapping("/board/{boardId}")
-    public ResponseEntity<?> deleteBoard(@PathVariable Long boardId, HttpServletRequest request) {
-
-        String password = request.getHeader("Password");
+    public ResponseEntity<?> deleteBoard(@PathVariable Long boardId, @RequestHeader("Password") String password) {
 
         apiBoardService.deleteBoard(boardId, password);
 
