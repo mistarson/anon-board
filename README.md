@@ -7,13 +7,13 @@
 <br>
 
 ## API 명세서
-|기능|Method|URL|Reqeust|Response|
-|:---|:---|:---|:---|:---|
-|게시글 작성|POST|/api/board|{ "title":title, "writer":writer, "password":password, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
-|게시글 조회|GET|/api/board/{boardId}||{ "id":id, "title":title, "writer":writer, "content":content }|
-|게시글 전체 목록 조회|GET|/api/boards|||
-|게시글 수정|PATCH|/api/board/{boardId}|{ "title":title, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
-|게시글 삭제|DELETE|/api/board/{boardId}|||
+|기능|Method|URL|Header|Reqeust|Response|
+|:---|:---|:---|:---|:---|:---|
+|게시글 작성|POST|/api/boards||{ "title":title, "writer":writer, "password":password, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
+|게시글 조회|GET|/api/boards/{boardId}||{ "id":id, "title":title, "writer":writer, "content":content }|
+|게시글 전체 목록 조회|GET|/api/boards||[{ "id":id, "title":title, "writer":writer, "content":content }, { "id":id, "title":title, "writer":writer, "content":content }]|
+|게시글 수정|PATCH|/api/boards|Password:"password"|{ "title":title, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
+|게시글 삭제|DELETE|/api/boards/{boardId}|Password:"password"|||
 
 <br>
 <br>
@@ -29,3 +29,12 @@
 - [x] 게시글 수정 정보에서 보내온 password가 일치할 때만 게시글 수정이 가능하고 불일치하다면 "비밀번호가 일치하지 않습니다."라는 에러문구 응답을 보내준다.
 - [x] Id를 이용하여 게시글 삭제를 요청하면 해당 Id를 가진 게시글을 삭제한다.
 - [x] 게시글 삭제 정보에서 보내온 password가 일치할 때만 게시글 삭제가 가능하고 불일치하다면 "비밀번호가 일치하지 않습니다."라는 에러문구 응답을 보내준다.
+
+## 질문 & 답변
+### 1. 수정, 삭제 API의 request를 어떤 방식으로 사용 하셨나요? (param, query, body)
+
+### 2. RESTful한 API를 설계하셨나요? 어떤 부분이 그런가요? 어떤 부분이 그렇지 않나요?
+
+### 3. 적절한 관심사 분리를 적용하셨나요? (Controller, Service, Repository)
+
+### 4. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
