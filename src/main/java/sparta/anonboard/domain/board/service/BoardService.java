@@ -36,4 +36,7 @@ public class BoardService {
         return findBoard;
     }
 
+    public void deleteBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
+    }
 }

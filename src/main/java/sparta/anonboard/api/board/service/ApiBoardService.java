@@ -50,10 +50,18 @@ public class ApiBoardService {
         return BoardResponseDto.of(modifiedBoard);
     }
 
-    private void validatePassword(String passwordInRequest, String passwordInDB) {
-        if (!passwordInDB.equals(passwordInRequest)) {
-            throw new IllegalArgumentException();
-        }
+    @Transactional
+    public void deleteBoard(Long boardId, String password) {
+
+        Board findBoard = boardService.findBoardById(boardId);
+        validatePassword(password, findBoard.getPassword());
+
+        boardService.deleteBoard(boardId);
     }
 
+    private void validatePassword(String passwordInRequest, String passwordInDB) {
+        if (!passwordInDB.equals(passwordInRequest)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+    }
 }
