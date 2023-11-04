@@ -39,11 +39,13 @@
 ## 질문 & 답변
 ### 1. 수정, 삭제 API의 request를 어떤 방식으로 사용 하셨나요? (param, query, body)
 수정은 body를 사용하였고, 삭제는 query를 사용하였습니다.
-수정의 경우 PATCH 메서드를 사용하여 Requestbody를 통해 json으로 통신하였습니다. 삭제의 경우 DELETE 메서드를 사용하여 Requestbody 통하여 password를 전달하려 하였지만 DELETE 메서드는 body 사용을 지양하라는 글을 읽고 Password Http Header를 통해 통신하도록 하였다. 이에 따라 수정 API 또한, Password 헤더를 통해 통신하도록 하였다.
+수정의 경우 PATCH 메서드를 사용하여 Requestbody를 통해 json으로 통신하였습니다. 삭제의 경우 DELETE 메서드를 사용하여 Requestbody 통하여 password를 전달하려 하였지만 DELETE 메서드는 body 사용을 지양하라는 글을 읽고 다른 방법을 찾았다. param과 query는 url 상에 노출이 된다. Header도 노출이 되지 않는건 아니지만 전의 두 방법보다 안전하다고 생각하여 Password라는 이름의 Http Header를 통해 통신하도록 하였다. 이에 따라 수정 API 또한, Password 헤더를 통해 통신하도록 하였다.
 
 ### 2. RESTful한 API를 설계하셨나요? 어떤 부분이 그런가요? 어떤 부분이 그렇지 않나요?
-API 명세서를 작성할 때, 기능별로 자원과 행위를 분리하도록 노력하였다. 처음에는 전체 목록 조회일 때만 boards라는 복수를 사용하였는데
+API 명세서를 작성할 때, 기능별로 자원과 행위를 분리하도록 노력하였다. url을 구성할 때, 처음에는 조회, 수정, 삭제는 특정한 board 취급하기 때문에 단수인 board를 사용하였고, 전체 목록 조회일 때만 boards라는 복수를 사용하였다. 하지만 몇몇 글을 찾아봤을 때, 단수든 복수든 사용하는 것은 상관없지만 둘을 혼용해서 사용하는 것은 지양해야 한다고 말한다. 그래서 모두 복수형으로 변경하였다.
 
 ### 3. 적절한 관심사 분리를 적용하셨나요? (Controller, Service, Repository)
+도메인 로직이 dto에 종속성을 가지면 유지보수하기 힘들어 지기 때문에 도메인 레이어와 api 레이어로 나누어 관심사를 분리하였다.
 
 ### 4. API 명세서 작성 가이드라인을 검색하여 직접 작성한 API 명세서와 비교해보세요!
+
