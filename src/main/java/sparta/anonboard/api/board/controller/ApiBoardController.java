@@ -25,7 +25,7 @@ public class ApiBoardController {
 
     private final ApiBoardService apiBoardService;
 
-    @PostMapping("/board")
+    @PostMapping("/boards")
     public ResponseEntity<BoardResponseDto> postBoard(@Valid @RequestBody PostBoardRequestDto postBoardRequestDto) {
 
         BoardResponseDto boardResponseDto = apiBoardService.postBoard(postBoardRequestDto);
@@ -33,7 +33,7 @@ public class ApiBoardController {
         return ResponseEntity.ok(boardResponseDto);
     }
 
-    @GetMapping("/board/{boardId}")
+    @GetMapping("/boards/{boardId}")
     public ResponseEntity<BoardResponseDto> inquireBoard(@PathVariable Long boardId) {
 
         BoardResponseDto boardResponseDto = apiBoardService.inquireBoard(boardId);
@@ -49,7 +49,7 @@ public class ApiBoardController {
         return ResponseEntity.ok(boards);
     }
 
-    @PatchMapping("/board")
+    @PatchMapping("/boards")
     public ResponseEntity<BoardResponseDto> modifyBoard(
             @Valid @RequestBody ModifyBoardRequestDto modifyBoardRequestDto,
             HttpServletRequest request) {
@@ -61,7 +61,7 @@ public class ApiBoardController {
         return ResponseEntity.ok(modifiedBoardDto);
     }
 
-    @DeleteMapping("/board/{boardId}")
+    @DeleteMapping("/boards/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long boardId, HttpServletRequest request) {
 
         String password = request.getHeader("Password");
