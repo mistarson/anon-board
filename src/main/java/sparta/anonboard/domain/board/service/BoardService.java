@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sparta.anonboard.domain.board.entity.Board;
 import sparta.anonboard.domain.board.repository.BoardRepository;
+import sparta.anonboard.error.exception.ErrorCode;
+import sparta.anonboard.error.exception.custom.EntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +20,12 @@ public class BoardService {
 
     @Transactional
     public Board postBoard(Board board) {
-       return boardRepository.save(board);
+        return boardRepository.save(board);
     }
 
     public Board findBoardById(Long boardId) {
-        return boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException());
+        return boardRepository.findById(boardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.BOARD_NOT_FOUND));
     }
 
     public List<Board> findAllBoards() {

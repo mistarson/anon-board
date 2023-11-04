@@ -10,6 +10,8 @@ import sparta.anonboard.api.board.dto.ModifyBoardRequestDto;
 import sparta.anonboard.api.board.dto.PostBoardRequestDto;
 import sparta.anonboard.domain.board.entity.Board;
 import sparta.anonboard.domain.board.service.BoardService;
+import sparta.anonboard.error.exception.ErrorCode;
+import sparta.anonboard.error.exception.custom.MismatchedPasswordException;
 
 @Service
 @RequiredArgsConstructor
@@ -61,7 +63,7 @@ public class ApiBoardService {
 
     private void validatePassword(String passwordInRequest, String passwordInDB) {
         if (!passwordInDB.equals(passwordInRequest)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new MismatchedPasswordException(ErrorCode.MISMATCHED_PASSWORD);
         }
     }
 }
