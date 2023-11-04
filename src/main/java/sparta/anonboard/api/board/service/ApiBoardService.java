@@ -15,7 +15,6 @@ import sparta.anonboard.error.exception.custom.MismatchedPasswordException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class ApiBoardService {
 
     private final BoardService boardService;

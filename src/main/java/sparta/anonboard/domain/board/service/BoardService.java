@@ -13,7 +13,6 @@ import sparta.anonboard.error.exception.custom.EntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -32,6 +31,7 @@ public class BoardService {
         return boardRepository.findAll(Sort.by(Direction.DESC, "createTime"));
     }
 
+    @Transactional
     public Board modifyBoard(Board modifyBoard, Board findBoard) {
 
         findBoard.modify(modifyBoard);
@@ -39,6 +39,7 @@ public class BoardService {
         return findBoard;
     }
 
+    @Transactional
     public void deleteBoard(Long boardId) {
         boardRepository.deleteById(boardId);
     }
