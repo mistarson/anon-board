@@ -12,8 +12,8 @@
 |게시글 작성|POST|/api/board|{ "title":title, "writer":writer, "password":password, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
 |게시글 조회|GET|/api/board/{boardId}||{ "id":id, "title":title, "writer":writer, "content":content }|
 |게시글 전체 목록 조회|GET|/api/boards|||
-|게시글 수정|PATCH|/api/board/{boardId}|{ "title":title, "password":password, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
-|게시글 삭제|DELETE|/api/board/{boardId}|{ "password":password }||
+|게시글 수정|PATCH|/api/board/{boardId}|{ "title":title, "content":content }|{ "id":id, "title":title, "writer":writer, "content":content }|
+|게시글 삭제|DELETE|/api/board/{boardId}|||
 
 <br>
 <br>
