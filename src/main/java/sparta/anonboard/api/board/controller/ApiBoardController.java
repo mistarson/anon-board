@@ -50,10 +50,13 @@ public class ApiBoardController {
     }
 
     @PatchMapping("/board")
-    public ResponseEntity<BoardResponseDto> modifyBoard(@Valid @RequestBody
-                                                                ModifyBoardRequestDto modifyBoardRequestDto) {
+    public ResponseEntity<BoardResponseDto> modifyBoard(
+            @Valid @RequestBody ModifyBoardRequestDto modifyBoardRequestDto,
+            HttpServletRequest request) {
 
-        BoardResponseDto modifiedBoardDto = apiBoardService.modifyBoard(modifyBoardRequestDto);
+        String password = request.getHeader("Password");
+
+        BoardResponseDto modifiedBoardDto = apiBoardService.modifyBoard(modifyBoardRequestDto, password);
 
         return ResponseEntity.ok(modifiedBoardDto);
     }

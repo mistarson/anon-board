@@ -38,10 +38,10 @@ public class ApiBoardService {
     }
 
     @Transactional
-    public BoardResponseDto modifyBoard(ModifyBoardRequestDto modifyBoardRequestDto) {
+    public BoardResponseDto modifyBoard(ModifyBoardRequestDto modifyBoardRequestDto, String password) {
 
         Board findBoard = boardService.findBoardById(modifyBoardRequestDto.getId());
-        validatePassword(modifyBoardRequestDto.getPassword(), findBoard.getPassword());
+        validatePassword(password, findBoard.getPassword());
 
         Board modifyBoard = modifyBoardRequestDto.toEntity();
 

@@ -17,15 +17,11 @@ public class ModifyBoardRequestDto {
     private String title;
 
     @NotBlank
-    private String password;
-
-    @NotBlank
     private String content;
 
     public Board toEntity() {
         return Board.builder()
                 .title(title)
-                .password(password)
                 .content(content)
                 .build();
     }
